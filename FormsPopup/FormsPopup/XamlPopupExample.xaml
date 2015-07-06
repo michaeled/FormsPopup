@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ex:PopupPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="FormsPopup.XamlPopupExample"
+	xmlns:ex="clr-namespace:FormsPopup;assembly=FormsPopup">
+
+  <StackLayout>
+    <TableView Intent="Settings">
+      <TableRoot>
+        <TableSection Title="XAML Popup Example">
+          <SwitchCell On="True" x:Name="closeOnAnyTap" Text="Close on tap"></SwitchCell>
+          <SwitchCell x:Name="preventShowing" Text="Prevent popup from showing"></SwitchCell>
+          <SwitchCell x:Name="displayTappedSection" Text="Display the tapped section's name"></SwitchCell>
+        </TableSection>
+      </TableRoot>
+    </TableView>
+    <Button Text="Show Popup" Clicked="Button_OnClicked"></Button>
+  </StackLayout>
+
+  <ex:PopupPage.Popups>
+    <ex:Popup x:Name="popup1"
+              XPositionRequest="0.5"
+              YPositionRequest="0.5"
+              ContentWidthRequest="0.8"
+              ContentHeightRequest="0.5">
+
+      <ex:Popup.Header>
+        <ContentView Padding="10" BackgroundColor="#3399FF">
+          <Label FontSize="Large" TextColor="White" Text="Simple popup" />
+        </ContentView>
+      </ex:Popup.Header>
+
+      <ex:Popup.Body>
+        <ContentView Padding="10" BackgroundColor="White">
+          <Label FontSize="Medium" TextColor="Gray"
+Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
+        </ContentView>
+      </ex:Popup.Body>
+    </ex:Popup>
+  </ex:PopupPage.Popups>
+</ex:PopupPage>
