@@ -1,7 +1,5 @@
 # Xamarin.Forms Popup View
 
-![alt text](https://github.com/michaeled/FormsPopup/blob/master/documentation/droid.png "Android")
-
 This repository houses an example of using the Xamarin.Forms API to create a popup view.
 I chose not to use any native APIs while implementing the view, as I wished to use this as a learning experience. That said, it's still a fairly *featureful* implementation.
 
@@ -67,7 +65,10 @@ private void Popup1_Showing(object sender, PopupShowingEventArgs e)
 }
 ```
 
-## Misc Features
+## Miscellaneous Features
 
 * The left, top, right, and bottom border colors can be individually set
 * During the `Tapped` event, you can determine if the user tapped within the header, body, or footer sections.
+
+## Running
+![alt text](https://github.com/michaeled/FormsPopup/blob/master/documentation/droid.png "Android")
