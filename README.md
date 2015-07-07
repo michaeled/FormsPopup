@@ -104,7 +104,7 @@ private void Popup1_Showing(object sender, PopupShowingEventArgs e)
 
 ## Animations
 
-The `Popup.ShowAsync()` and `Popup.HideAsync()` methods can be used to add animations to either event. If you do not wish to include animations, you can use either `Popup.Show()` or `Popup.Hide()`.
+The `Popup.ShowAsync()` and `Popup.HideAsync()` methods can be used to add animations. If you do not wish to include animations, you can use either `Popup.Show()` or `Popup.Hide()`.
 
 **Example**
 
