@@ -18,17 +18,44 @@ The current implementation requires either one of two conditions be met before y
 2. The visible page must instantiate a `PopupPageInitializer` before any children have been added to the page:
 
 ```csharp
-public class ExamplePage : ContentPage
+public class CodedSimpleExample : ContentPage
 {
-	public ExamplePage()
-	{
-		var layout = new StackLayout { ... }
-		var popup = new Popup { .. }
-		
-		var popupInit = new PopupPageInitializer(this) { popup };
-		
-		Content = layout;
-	}
+    public CodedSimpleExample()
+    {
+        var popup = new Popup
+        {
+            XPositionRequest = 0.5,
+            YPositionRequest = 0.2,
+            ContentHeightRequest = 0.1,
+            ContentWidthRequest = 0.4,
+            Padding = 10,
+
+            Body = new ContentView
+            {
+                BackgroundColor = Color.White,
+                Content = new Label 
+                {
+                    XAlign = TextAlignment.Center,
+                    YAlign = TextAlignment.Center,
+                    TextColor = Color.Black,
+                    Text = "Hello, World!"
+                }
+            }
+        };
+
+        new PopupPageInitializer(this) {popup};
+
+        var button = new Button {Text = "Show Popup"};
+        button.Clicked += (s, e) => popup.Show();
+
+        Content = new StackLayout
+        {
+		Children = 
+            	{
+			button
+		}
+        };
+    }
 }
 ```
 
@@ -74,6 +101,24 @@ private void Popup1_Showing(object sender, PopupShowingEventArgs e)
 	}
 }
 ```
+
+## Animations
+
+The `Popup.ShowAsync()` and `Popup.HideAsync()` methods can be used to add animations to either event. If you do not wish to include animations, you can use either `Popup.Show()` or `Popup.Hide()`.
+
+**Example**
+
+```csharp
+await popup1.ShowAsync(async p =>
+{
+	await p.RelScaleTo(0.05, 90, Easing.CubicOut);
+	await p.RelScaleTo(-0.05, 80, Easing.CubicOut);
+});
+```
+
+## Styling
+
+At this moment, there are no default styles for the popup. Your views will inherit whatever styles you have attached to your resource dictionaries.
 
 ## Miscellaneous Features
 
