@@ -12,6 +12,7 @@
           <SwitchCell On="True" x:Name="closeOnAnyTap" Text="Close on tap"></SwitchCell>
           <SwitchCell x:Name="preventShowing" Text="Prevent popup from showing"></SwitchCell>
           <SwitchCell x:Name="displayTappedSection" Text="Display the tapped section's name"></SwitchCell>
+          <SwitchCell x:Name="showingAnimation" Text="Turn on 'Showing' animation"></SwitchCell>
         </TableSection>
       </TableRoot>
     </TableView>
@@ -23,7 +24,9 @@
               XPositionRequest="0.5"
               YPositionRequest="0.5"
               ContentWidthRequest="0.8"
-              ContentHeightRequest="0.5">
+              ContentHeightRequest="0.5"
+              Tapped="Popup1_Tapped"
+              Showing="Popup1_Showing">
 
       <ex:Popup.Header>
         <ContentView Padding="10" BackgroundColor="#3399FF">

@@ -1,8 +1,15 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace FormsPopup
 {
+    /// <summary>
+    /// Popup view to be displayed over a <see cref="ContentPage"/>.
+    /// </summary>
+    /// <remarks>
+    /// No default styles have been created for this view.
+    /// </remarks>
 	public class Popup : ContentView
 	{
         private readonly AbsoluteLayout _popupView = new AbsoluteLayout();
@@ -257,7 +264,14 @@ namespace FormsPopup
 		}
 
 
-	    public void Show()
+        /// <summary>
+        /// Show the popup view.
+        /// </summary>
+        /// <param name="animation">The method is passed the popup as the first argument</param>
+        /// <remarks>
+        /// This method is not limited adding animations.
+        /// </remarks>
+	    public async Task ShowAsync(Func<Popup, Task> animation)
         {
 			if (IsVisible) {
 				return;
@@ -279,11 +293,37 @@ namespace FormsPopup
 
             IsVisible = true;
 
+            if (animation == null)
+            {
+                await Task.FromResult(0);
+            }
+            else
+            {
+                // passes a reference to this popup object to the consumer
+                await animation(this);
+            }
+
             OnShown();
         }
 
 
-	    public void Hide()
+        /// <summary>
+        /// Show the popup view.
+        /// </summary>
+        public void Show()
+        {
+            ShowAsync(null);
+        }
+
+
+        /// <summary>
+        /// Hide the popup view.
+        /// </summary>
+        /// <param name="animation">The method is passed the popup as the first argument</param>
+        /// <remarks>
+        /// This method is not limited adding animations.
+        /// </remarks>
+        public async Task HideAsync(Func<Popup, Task> animation)
 	    {
 	        if (!IsVisible)
 	        {
@@ -299,8 +339,27 @@ namespace FormsPopup
 
             IsVisible = false;
 
+            if (animation == null)
+            {
+                await Task.FromResult(0);
+            }
+            else
+            {
+                // passes a reference to this popup object to the consumer
+                await animation(this);
+            }
+
             OnHidden();
 	    }
+
+
+        /// <summary>
+        /// Hide the popup view.
+        /// </summary>
+        public void Hide()
+        {
+            HideAsync(null);
+        }
 
 
         private void OnPopupInitializing(object sender, EventArgs e)

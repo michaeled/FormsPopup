@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Forms;
 
 namespace FormsPopup.Examples
 {
@@ -7,8 +8,6 @@ namespace FormsPopup.Examples
         public XamlPopupExample()
         {
             InitializeComponent();
-            popup1.Tapped += Popup1_Tapped;
-            popup1.Showing += Popup1_Showing;
         }
 
 
@@ -35,9 +34,20 @@ namespace FormsPopup.Examples
         }
 
 
-        private void Button_OnClicked(object sender, EventArgs e)
+        private async void Button_OnClicked(object sender, EventArgs e)
         {
-            popup1.Show();
+            if (showingAnimation.On)
+            {
+                await popup1.ShowAsync(async p =>
+                {
+                    await p.RelScaleTo(0.05, 90, Easing.CubicOut);
+                    await p.RelScaleTo(-0.05, 80, Easing.CubicOut);
+                });
+            }
+            else
+            {
+                popup1.Show();
+            }
         }
     }
 }

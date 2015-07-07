@@ -6,7 +6,8 @@ namespace FormsPopup.Examples
     {
         private readonly SwitchCell _closeOnAnyTap;
         private readonly SwitchCell _preventShowing;
-        private readonly SwitchCell _displayTappedSection ;
+        private readonly SwitchCell _displayTappedSection;
+        private readonly SwitchCell _showingAnimation;
         private readonly Popup _popup1;
 
 
@@ -15,6 +16,7 @@ namespace FormsPopup.Examples
             _closeOnAnyTap = new SwitchCell {Text = "Close on any tap", On = true};
             _preventShowing = new SwitchCell { Text = "Prevent popup from showing" };
             _displayTappedSection = new SwitchCell {Text = "Display the tapped section's name"};
+            _showingAnimation = new SwitchCell { Text = "Turn on 'Showing' animation" };
 
             var showPopup = new Button {Text = "Show Popup"};
 
@@ -66,7 +68,8 @@ namespace FormsPopup.Examples
                             {
                                 _closeOnAnyTap,
                                 _preventShowing,
-                                _displayTappedSection
+                                _displayTappedSection,
+                                _showingAnimation
                             }
                         },
                     },
@@ -105,9 +108,20 @@ namespace FormsPopup.Examples
         }
 
 
-        private void ShowPopup_Clicked(object sender, System.EventArgs e)
+        private async void ShowPopup_Clicked(object sender, System.EventArgs e)
         {
-            _popup1.Show();
+            if (_showingAnimation.On)
+            {
+                await _popup1.ShowAsync(async p =>
+                {
+                    await p.RelScaleTo(0.05, 90, Easing.CubicOut);
+                    await p.RelScaleTo(-0.05, 80, Easing.CubicOut);
+                });
+            }
+            else
+            {
+                _popup1.Show();
+            }
         }
     }
 }
