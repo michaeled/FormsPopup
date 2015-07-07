@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FormsPopup
+namespace FormsPopup.Examples
 {
     public partial class XamlPopupExample
     {
