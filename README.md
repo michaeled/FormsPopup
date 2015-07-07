@@ -3,9 +3,16 @@
 This repository houses an example of using the Xamarin.Forms API to create a popup view.
 I chose not to use any native APIs while implementing the view, as I wished to use this as a learning experience. That said, it's still a fairly *featureful* implementation.
 
+**Projects**
+
+* FormsPopup (The `Popup` implementation)
+* FormsPopup.Examples
+* FormsPopup.Droid
+* FormsPopup.iOS
+
 ## Initializing
 
-The current implementation requires either one of two conditions to be met before you can use a popup view within a `Page`:
+The current implementation requires either one of two conditions be met before you can use a popup view within a `Page`:
 
 1. The visible page must extend the `PopupPage` type.
 2. The visible page must instantiate a `PopupPageInitializer` before any children have been added to the page.
@@ -28,7 +35,7 @@ Two examples have been added to the repository to illustrate this point. Referen
 
 The current implementation relies heavily on proportional sizes. For any properties that require a location or size, you should pass in a value between 0 and 1.
 
-E.g.
+**Example**
 
 ```csharp
 var popup = new Popup
@@ -53,7 +60,7 @@ The following events are invoked during various moments in a popup's life cycle.
 
 The `Tapped`, `Showing`, and `Hiding` events can all be cancelled by using the event argument properties:
 
-### Example
+**Example**
 
 ```csharp
 private void Popup1_Showing(object sender, PopupShowingEventArgs e)
@@ -70,5 +77,5 @@ private void Popup1_Showing(object sender, PopupShowingEventArgs e)
 * The left, top, right, and bottom border colors can be individually set
 * During the `Tapped` event, you can determine if the user tapped within the header, body, or footer sections.
 
-## Running
+## Screenshots
 ![alt text](https://github.com/michaeled/FormsPopup/blob/master/documentation/droid.png "Android")
