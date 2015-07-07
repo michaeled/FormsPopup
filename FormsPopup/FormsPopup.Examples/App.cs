@@ -6,7 +6,12 @@ namespace FormsPopup.Examples
     {
         public App()
         {
-            // The root page of your application
+            /*
+             * Also try:
+             *  MainPage = new CodedPopupExample();
+             *  MainPage = new CodedSimpleExample();
+             */
+
             MainPage = new XamlPopupExample();
         }
 
