@@ -81,4 +81,4 @@ private void Popup1_Showing(object sender, PopupShowingEventArgs e)
 * During the `Tapped` event, you can determine if the user tapped within the header, body, or footer sections.
 
 ## Screenshots
-![alt text](https://github.com/michaeled/FormsPopup/blob/master/documentation/droid.png "Android")
+![alt text](https://github.com/michaeled/FormsPopup/blob/master/pictures/droid.png "Android")
