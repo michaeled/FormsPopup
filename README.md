@@ -18,7 +18,7 @@ The current implementation requires either one of two conditions be met before y
 2. The visible page must instantiate a `PopupPageInitializer` before any children have been added to the page:
 
 ```csharp
-public class ExamplePage
+public class ExamplePage : ContentPage
 {
 	public Example()
 	{
