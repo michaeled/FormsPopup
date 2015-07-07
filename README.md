@@ -15,25 +15,28 @@ I chose not to use any native APIs while implementing the view, as I wished to u
 The current implementation requires either one of two conditions be met before you can use a popup view within a `Page`:
 
 1. The visible page must extend the `PopupPage` type.
-2. The visible page must instantiate a `PopupPageInitializer` before any children have been added to the page.
+2. The visible page must instantiate a `PopupPageInitializer` before any children have been added to the page:
 
 ```csharp
-public Example()
+public class ExamplePage
 {
-	var layout = new StackLayout { ... }
-	var popup = new Popup { .. }
-	
-	var popupInit = new PopupPageInitializer(this) { popup };
-	
-	Content = layout;
+	public Example()
+	{
+		var layout = new StackLayout { ... }
+		var popup = new Popup { .. }
+		
+		var popupInit = new PopupPageInitializer(this) { popup };
+		
+		Content = layout;
+	}
 }
 ```
 
-Two examples have been added to the repository to illustrate this point. Reference either `CodedPopupExample.cs` or `XamlPopupExample.cs`.
+Two examples have been added to the `FormsPopup.Examples` project to demonstrate this point. Reference either `CodedPopupExample.cs` or `XamlPopupExample.xaml/XamlPopupExample.cs`.
 
 ## Sizing and Placement
 
-The current implementation relies heavily on proportional sizes. For any properties that require a location or size, you should pass in a value between 0 and 1.
+The current implementation relies heavily on proportional sizes. For any `Popup` properties that require a location or size, you should pass in a value between 0 and 1.
 
 **Example**
 
