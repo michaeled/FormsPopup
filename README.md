@@ -20,7 +20,7 @@ The current implementation requires either one of two conditions be met before y
 ```csharp
 public class ExamplePage : ContentPage
 {
-	public Example()
+	public ExamplePage()
 	{
 		var layout = new StackLayout { ... }
 		var popup = new Popup { .. }
