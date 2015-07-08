@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace FormsPopup.Examples
 {
@@ -112,10 +113,20 @@ namespace FormsPopup.Examples
         {
             if (_showingAnimation.On)
             {
+                double original;
+
                 await _popup1.ShowAsync(async p =>
                 {
-                    await p.RelScaleTo(0.05, 90, Easing.CubicOut);
-                    await p.RelScaleTo(-0.05, 80, Easing.CubicOut);
+                    original = p.Scale;
+
+                    await Task.WhenAll
+                    (
+                        p.RelScaleTo(0.05, 100, Easing.CubicOut),
+                        p.RelScaleTo(-0.05, 105, Easing.CubicOut)
+                    ).ContinueWith(c =>
+                    {
+                        p.Scale = original;
+                    });
                 });
             }
             else
