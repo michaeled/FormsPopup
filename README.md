@@ -15,7 +15,9 @@ I chose not to use any native APIs while implementing the view, as I wished to e
 The current implementation requires either one of two conditions be met before you can use a popup view within a `Page`:
 
 1. The visible page must extend the `PopupPage` class.
-2. The visible page must instantiate an object of type `PopupPageInitializer` before any children have been added to the page:
+2. Any visible page that does not extend `PopupPage` must instantiate an object of type `PopupPageInitializer` before any children have been added to the page:
+
+**Example**
 
 ```csharp
 public class CodedSimpleExample : ContentPage
