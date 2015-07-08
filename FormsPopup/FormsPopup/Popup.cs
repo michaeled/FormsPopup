@@ -267,11 +267,11 @@ namespace FormsPopup
 		/// <summary>
 		/// Show the popup view.
 		/// </summary>
-		/// <param name="animation">The method is passed the popup as the first argument</param>
+        /// <param name="animation">The method is passed the VisualElement that contains the body, header, and footer</param>
 		/// <remarks>
 		/// This method is not limited adding animations.
 		/// </remarks>
-		public async Task ShowAsync(Func<Popup, Task> animation)
+		public async Task ShowAsync(Func<VisualElement, Task> animation)
 		{
 			if (IsVisible)
 			{
@@ -300,8 +300,8 @@ namespace FormsPopup
 			}
 			else
 			{
-				// passes a reference to this popup object to the consumer
-				await animation(this);
+                // the overlay is not passed to the caller
+				await animation(_sectionContainer);
 			}
 
 			OnShown();
@@ -320,11 +320,11 @@ namespace FormsPopup
 		/// <summary>
 		/// Hide the popup view.
 		/// </summary>
-		/// <param name="animation">The method is passed the popup as the first argument</param>
+		/// <param name="animation">The method is passed the VisualElement that contains the body, header, and footer</param>
 		/// <remarks>
 		/// This method is not limited adding animations.
 		/// </remarks>
-		public async Task HideAsync(Func<Popup, Task> animation)
+        public async Task HideAsync(Func<VisualElement, Task> animation)
 		{
 			if (!IsVisible)
 			{
@@ -346,8 +346,8 @@ namespace FormsPopup
 			}
 			else
 			{
-				// passes a reference to this popup object to the consumer
-				await animation(this);
+                // the overlay is not passed to the caller
+				await animation(_sectionContainer);
 			}
 
 			OnHidden();

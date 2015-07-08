@@ -49,10 +49,8 @@ namespace FormsPopup.Examples
                     (
                         p.RelScaleTo(0.05, 100, Easing.CubicOut),
                         p.RelScaleTo(-0.05, 105, Easing.CubicOut)
-                    ).ContinueWith(c =>
-                    {
-                        p.Scale = original;
-                    });
+                    )
+                    .ContinueWith(r => p.Scale = original);
                 });
             }
             else
