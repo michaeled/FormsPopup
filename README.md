@@ -118,8 +118,12 @@ await popup.ShowAsync(async p =>
 
 	await Task.WhenAll
 	(
-		// Since p is the Popup object, scaling it would also affect the overlay behind the popup's body
-		// Although it wouldn't be noticeable in this simple example, it would be if the overlay's color was set.
+		/** 
+		 *  Since p is the Popup object, scaling it would also affect the overlay
+		 *  behind the popup's body. Although it wouldn't be noticeable in this simple example,
+		 *  it would be if the overlay's color was set.
+		**/
+		
 		p.SectionContainer.RelScaleTo(0.05, 100, Easing.CubicOut),
 		p.SectionContainer.RelScaleTo(-0.05, 105, Easing.CubicOut)
 	).ContinueWith(c =>
