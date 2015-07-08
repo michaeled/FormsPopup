@@ -145,4 +145,5 @@ At this moment, there are no default styles for the popup. Your views will inher
 * During the `Tapped` event, you can determine if the user tapped within the header, body, or footer sections.
 
 ## Screenshots
-![alt text](https://github.com/michaeled/FormsPopup/blob/master/pictures/droid.png "Android")
+![alt text](https://github.com/michaeled/FormsPopup/blob/master/pictures/androidPopup.gif "Android")
+![alt text](https://github.com/michaeled/FormsPopup/blob/master/pictures/iOSPopup.gif "iOS")

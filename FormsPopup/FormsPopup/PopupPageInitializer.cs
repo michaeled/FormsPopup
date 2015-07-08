@@ -59,6 +59,9 @@ namespace FormsPopup
 			if (ParentPage.Content == e.Element && e.Element != _absContent)
 			{
 				var oldContent = ParentPage.Content;
+
+				Device.OnPlatform (() => ParentPage.Content = null);
+
 				_absContent.Children.Add(oldContent);
 
 				AbsoluteLayout.SetLayoutFlags(oldContent, AbsoluteLayoutFlags.All);
