@@ -1,7 +1,7 @@
 # Xamarin.Forms Popup View
 
 This repository houses an example of using the Xamarin.Forms API to create a popup view.
-I chose not to use any native APIs while implementing the view, as I wished to use this as a learning experience. That said, it's still a fairly *featureful* implementation.
+I chose not to use any native APIs while implementing the view, as I wished to experiment with the framework. That said, it's still a fairly *featureful* implementation.
 
 **Projects**
 
@@ -14,8 +14,8 @@ I chose not to use any native APIs while implementing the view, as I wished to u
 
 The current implementation requires either one of two conditions be met before you can use a popup view within a `Page`:
 
-1. The visible page must extend the `PopupPage` type.
-2. The visible page must instantiate a `PopupPageInitializer` before any children have been added to the page:
+1. The visible page must extend the `PopupPage` class.
+2. The visible page must instantiate an object of type `PopupPageInitializer` before any children have been added to the page:
 
 ```csharp
 public class CodedSimpleExample : ContentPage
@@ -42,7 +42,8 @@ public class CodedSimpleExample : ContentPage
 				}
 			}
 		};
-	
+
+		// Required for the popup to work
 		new PopupPageInitializer(this) {popup};
 	
 		var button = new Button {Text = "Show Popup"};
@@ -79,7 +80,7 @@ var popup = new Popup
 
 ## Events
 
-The following events are invoked during various moments in a popup's life cycle. Their purpose should be self-evident.
+The following events are invoked during various moments in a popup's life cycle. They're availble to all `Popup` views.
 
 * Initializing (happens once, during the hosting page's `Appearing` event)
 * Tapped
@@ -88,7 +89,7 @@ The following events are invoked during various moments in a popup's life cycle.
 * Hiding
 * Hidden
 
-The `Tapped`, `Showing`, and `Hiding` events can all be cancelled by using the event argument properties:
+The `Tapped`, `Showing`, and `Hiding` events can be cancelled by using the event argument property:
 
 **Example**
 
@@ -109,10 +110,22 @@ The `Popup.ShowAsync()` and `Popup.HideAsync()` methods can be used to add anima
 **Example**
 
 ```csharp
-await popup1.ShowAsync(async p =>
+double original;
+
+await popup.ShowAsync(async p =>
 {
-	await p.RelScaleTo(0.05, 90, Easing.CubicOut);
-	await p.RelScaleTo(-0.05, 80, Easing.CubicOut);
+	original = p.Scale;
+
+	await Task.WhenAll
+	(
+		// Since p is the Popup object, scaling it would also affect the overlay behind the popup's body
+		// Although it wouldn't be noticeable in this simple example, it would be if the overlay's color was set.
+		p.SectionContainer.RelScaleTo(0.05, 100, Easing.CubicOut),
+		p.SectionContainer.RelScaleTo(-0.05, 105, Easing.CubicOut)
+	).ContinueWith(c =>
+	{	// reset popup to original size
+		p.SectionContainer.Scale = original;
+	});
 });
 ```
 

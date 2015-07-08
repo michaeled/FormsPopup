@@ -121,11 +121,11 @@ namespace FormsPopup.Examples
 
                     await Task.WhenAll
                     (
-                        p.RelScaleTo(0.05, 100, Easing.CubicOut),
-                        p.RelScaleTo(-0.05, 105, Easing.CubicOut)
+                        p.SectionContainer.RelScaleTo(0.05, 100, Easing.CubicOut),
+                        p.SectionContainer.RelScaleTo(-0.05, 105, Easing.CubicOut)
                     ).ContinueWith(c =>
                     {
-                        p.Scale = original;
+                        p.SectionContainer.Scale = original;
                     });
                 });
             }

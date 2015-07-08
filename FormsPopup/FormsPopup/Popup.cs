@@ -203,6 +203,12 @@ namespace FormsPopup
 		#endregion
 
 
+        /// <summary>
+        /// The SecionContainer includes the <see cref="Header"/>, <see cref="Body"/>, and <see cref="Footer"/>
+        /// </summary>
+        public VisualElement SectionContainer { get { return _sectionContainer; } }
+
+
 		public Popup()
 		{
 			IsVisible = false;
@@ -271,7 +277,7 @@ namespace FormsPopup
 		/// <remarks>
 		/// This method is not limited adding animations.
 		/// </remarks>
-		public async Task ShowAsync(Func<VisualElement, Task> animation)
+		public async Task ShowAsync(Func<Popup, Task> animation)
 		{
 			if (IsVisible)
 			{
@@ -301,7 +307,7 @@ namespace FormsPopup
 			else
 			{
                 // the overlay is not passed to the caller
-				await animation(_sectionContainer);
+				await animation(this);
 			}
 
 			OnShown();
@@ -324,7 +330,7 @@ namespace FormsPopup
 		/// <remarks>
 		/// This method is not limited adding animations.
 		/// </remarks>
-        public async Task HideAsync(Func<VisualElement, Task> animation)
+        public async Task HideAsync(Func<Popup, Task> animation)
 		{
 			if (!IsVisible)
 			{
@@ -347,7 +353,7 @@ namespace FormsPopup
 			else
 			{
                 // the overlay is not passed to the caller
-				await animation(_sectionContainer);
+				await animation(this);
 			}
 
 			OnHidden();
