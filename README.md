@@ -1,7 +1,7 @@
 # Xamarin.Forms Popup View
 
 This repository houses an example of using the Xamarin.Forms API to create a popup view.
-I chose not to use any native APIs while implementing the view, as I wished to experiment with the framework. That said, it's still a fairly *featureful* implementation.
+I chose not to use any platform APIs (Xamarin.Android or Xamarin.iOS) while implementing the view, as I wished to experiment with the framework. That said, it's still a fairly *featureful* implementation.
 
 **Projects**
 
@@ -14,8 +14,8 @@ I chose not to use any native APIs while implementing the view, as I wished to e
 
 The current implementation requires either one of two conditions be met before you can use a popup view within a `Page`:
 
-1. The visible page must extend the `PopupPage` class.
-2. Any visible page that does not extend `PopupPage` must instantiate an object of type `PopupPageInitializer` before any children have been added to the page:
+1. The visible page must extend from the `PopupPage` class.
+2. Any visible page that does not extend from `PopupPage` must instantiate an object of type `PopupPageInitializer` before any children have been added to the page. This is easier than it seems:
 
 **Example**
 
