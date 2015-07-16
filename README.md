@@ -1,7 +1,7 @@
 # Xamarin.Forms Popup View
 
 This repository houses an example of using the Xamarin.Forms API to create a popup view.
-I chose not to use any native APIs while implementing the view, as I wished to experiment with the framework. That said, it's still a fairly *featureful* implementation.
+I chose not to use any platform APIs (Xamarin.Android or Xamarin.iOS) while implementing the view, as I wished to experiment with the framework. That said, it's still a fairly *featureful* implementation.
 
 **Projects**
 
@@ -14,8 +14,10 @@ I chose not to use any native APIs while implementing the view, as I wished to e
 
 The current implementation requires either one of two conditions be met before you can use a popup view within a `Page`:
 
-1. The visible page must extend the `PopupPage` class.
-2. The visible page must instantiate an object of type `PopupPageInitializer` before any children have been added to the page:
+1. The visible page must extend from the `PopupPage` class.
+2. Any visible page that does not extend from `PopupPage` must instantiate an object of type `PopupPageInitializer` before any children have been added to the page. This is easier than it seems:
+
+**Example**
 
 ```csharp
 public class CodedSimpleExample : ContentPage
@@ -118,8 +120,12 @@ await popup.ShowAsync(async p =>
 
 	await Task.WhenAll
 	(
-		// Since p is the Popup object, scaling it would also affect the overlay behind the popup's body
-		// Although it wouldn't be noticeable in this simple example, it would be if the overlay's color was set.
+		/** 
+		 *  Since p is the Popup object, scaling it would also affect the overlay
+		 *  behind the popup's body. Although it wouldn't be noticeable in this simple example,
+		 *  it would be if the overlay's color was set.
+		**/
+		
 		p.SectionContainer.RelScaleTo(0.05, 100, Easing.CubicOut),
 		p.SectionContainer.RelScaleTo(-0.05, 105, Easing.CubicOut)
 	).ContinueWith(c =>
@@ -139,4 +145,5 @@ At this moment, there are no default styles for the popup. Your views will inher
 * During the `Tapped` event, you can determine if the user tapped within the header, body, or footer sections.
 
 ## Screenshots
-![alt text](https://github.com/michaeled/FormsPopup/blob/master/pictures/droid.png "Android")
+![alt text](https://github.com/michaeled/FormsPopup/blob/master/pictures/androidPopup.gif "Android")
+![alt text](https://github.com/michaeled/FormsPopup/blob/master/pictures/iOSPopup.gif "iOS")
