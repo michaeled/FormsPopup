@@ -7,9 +7,11 @@ namespace FormsPopup.Examples
         public App()
         {
             /*
-             * Also try:
+             *  Try these:
              *  MainPage = new CodedPopupExample();
              *  MainPage = new CodedSimpleExample();
+             *  MainPage = new NavigationPage(new NavigationExample());
+             *  MainPage = new CodedPopupExample();
              */
 
             MainPage = new CodedPopupExample();
