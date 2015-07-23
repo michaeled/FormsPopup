@@ -319,7 +319,9 @@ namespace FormsPopup
 		/// </summary>
 		public void Show()
 		{
+            #pragma warning disable 4014
 			ShowAsync(null);
+            #pragma warning restore 4014
 		}
 
 
@@ -344,8 +346,6 @@ namespace FormsPopup
 				return;
 			}
 
-			IsVisible = false;
-
 			if (animation == null)
 			{
 				await Task.FromResult(0);
@@ -356,6 +356,8 @@ namespace FormsPopup
 				await animation(this);
 			}
 
+            IsVisible = false;
+
 			OnHidden();
 		}
 
@@ -365,7 +367,9 @@ namespace FormsPopup
 		/// </summary>
 		public void Hide()
 		{
+            #pragma warning disable 4014
 			HideAsync(null);
+            #pragma warning restore 4014
 		}
 
 

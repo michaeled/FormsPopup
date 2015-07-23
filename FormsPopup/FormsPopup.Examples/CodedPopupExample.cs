@@ -107,9 +107,13 @@ namespace FormsPopup.Examples
         }
 
 
-        private void CloseButton_Clicked(object sender, EventArgs e)
+        private async void CloseButton_Clicked(object sender, EventArgs e)
         {
-            
+            await _popup1.HideAsync(async p =>
+            {
+                await p.FadeTo(0, 250, Easing.Linear);
+                p.Opacity = 1;
+            });
         }
 
 

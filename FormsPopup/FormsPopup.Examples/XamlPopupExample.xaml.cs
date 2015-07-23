@@ -58,5 +58,14 @@ namespace FormsPopup.Examples
                 popup1.Show();
             }
         }
+
+        private async void CloseButton_OnClicked(object sender, EventArgs e)
+        {
+            await popup1.HideAsync(async p =>
+            {
+                await p.FadeTo(0, 250, Easing.Linear);
+                p.Opacity = 1;
+            });
+        }
     }
 }

@@ -45,7 +45,7 @@ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliqu
       <ex:Popup.Footer>
         <ContentView BackgroundColor="White">
           <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
-            <Button Text="Does nothing" BackgroundColor="White" TextColor="#D37E00"></Button>
+            <Button Text="Close" BackgroundColor="White" TextColor="#D37E00" Clicked="CloseButton_OnClicked"></Button>
           </StackLayout>
         </ContentView>
       </ex:Popup.Footer>
