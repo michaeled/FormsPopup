@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace FormsPopup.Examples
@@ -23,7 +24,7 @@ namespace FormsPopup.Examples
 
             var closeButton = new Button
             {
-                Text = "Does nothing",
+                Text = "Close",
                 TextColor = Color.FromHex("#D37E00"),
                 BackgroundColor = Color.White,
             };
@@ -102,6 +103,13 @@ namespace FormsPopup.Examples
             _popup1.Tapped += Popup1_Tapped;
             _popup1.Showing += Popup1_Showing;
             showPopup.Clicked += ShowPopup_Clicked;
+            closeButton.Clicked += CloseButton_Clicked;
+        }
+
+
+        private void CloseButton_Clicked(object sender, EventArgs e)
+        {
+            
         }
 
 
