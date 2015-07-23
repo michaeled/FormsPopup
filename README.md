@@ -150,10 +150,10 @@ At this moment, there are no default styles for the popup. Your views will inher
 
 ## FAQ
 
-**Q** Can I use XAML to create the popups?
+<dl>
+  <dt>Q. Can I use XAML to create popup views?</dt>
+  <dd>**A.** Of course!</dd>
 
-**A** Of course!
-
-**Q** Can I add control XX in the popup?
-
-**A** I don't see why not. Let me know if you have any problems.
+  <dt>Q. Can I add control XX in the popup?</dt>
+  <dd>**A.** I don't see why not. Let me know if you have any problems.</dd>
+</dl>
