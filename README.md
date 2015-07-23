@@ -146,8 +146,10 @@ At this moment, there are no default styles for the popup. Your views will inher
 
 ## Screenshots
 ![alt text](https://github.com/michaeled/FormsPopup/blob/master/pictures/androidPopup.gif "Android")
-![alt text](https://github.com/michaeled/FormsPopup/blob/master/pictures/gridlayout.png "Android")
 ![alt text](https://github.com/michaeled/FormsPopup/blob/master/pictures/iOSPopup.gif "iOS")
+
+
+More screenshots are available in the repository.
 
 ## FAQ
 
