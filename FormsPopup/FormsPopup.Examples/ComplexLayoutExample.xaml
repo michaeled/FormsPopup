@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ex:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FormsPopup.Examples.ComplexLayoutExample"
+             	xmlns:ex="clr-namespace:FormsPopup;assembly=FormsPopup">
+  
+  <StackLayout>
+    <Button Text="Show Popup" Clicked="Button_OnClicked"></Button>
+  </StackLayout>
+  <ex:PopupPage.Popups>
+    
+    <ex:Popup x:Name="popup1"
+              XPositionRequest="0.5"
+              YPositionRequest="0.5"
+              ContentWidthRequest="0.8"
+              ContentHeightRequest="0.5"
+              Tapped="Popup1_Tapped">
+
+      <ex:Popup.Header>
+        <Grid Padding="10" BackgroundColor="#0F96BE">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+
+          <Label Grid.Column="0" Grid.Row="0" FontSize="Medium" Text="New Employee" />
+          <Label Grid.Column="1" Grid.Row="0" FontSize="Medium" XAlign="End" Text="Id: ABC0001" />
+        </Grid>
+      </ex:Popup.Header>
+
+      <ex:Popup.Body>
+        <StackLayout Padding="10" BackgroundColor="#7D7D7D">
+          <Entry Placeholder="First Name" />
+          <Entry Placeholder="Last Name" />
+
+          <Grid VerticalOptions="EndAndExpand">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Grid.Row="0" Text="Cancel" />
+            <Button Grid.Column="1" Grid.Row="0" Text="OK" />
+          </Grid>
+        </StackLayout>
+      </ex:Popup.Body>
+    </ex:Popup>
+  </ex:PopupPage.Popups>
+</ex:PopupPage>

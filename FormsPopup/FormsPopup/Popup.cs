@@ -13,7 +13,7 @@ namespace FormsPopup
 	public class Popup : ContentView
 	{
 		private readonly AbsoluteLayout _popupView = new AbsoluteLayout();
-		private readonly StackLayout _sectionContainer = new StackLayout();
+        private readonly RelativeLayout _sectionContainer = new RelativeLayout();
 
 		private readonly ContentView _headerSection = new ContentView();
 		private readonly ContentView _bodySection = new ContentView();
@@ -24,8 +24,13 @@ namespace FormsPopup
 		private readonly BoxView _topBorder = new BoxView();
 		private readonly BoxView _bottomBorder = new BoxView();
 
-		private const double BorderWidthFraction = 0.005;
-		private const double BorderLengthFraction = 1;
+		private const double BorderWidth = 1;
+
+
+        /// <summary>
+        /// The SecionContainer includes the <see cref="Header"/>, <see cref="Body"/>, and <see cref="Footer"/>
+        /// </summary>
+        public VisualElement SectionContainer { get { return _sectionContainer; } }
 
 
 		#region Events
@@ -98,16 +103,16 @@ namespace FormsPopup
 		public static readonly BindableProperty BodyProperty = BindableProperty.Create<Popup, View>(p => p.Body, null, propertyChanged: OnBodyPropertyChanged);
 		public static readonly BindableProperty FooterProperty = BindableProperty.Create<Popup, View>(p => p.Footer, null, propertyChanged: OnFooterPropertyChanged);
 
-		public static readonly BindableProperty XPositionRequestProperty = BindableProperty.Create<Popup, double>(p => p.XPositionRequest, default(double), propertyChanged: OnPositionNeedsUpdating);
-		public static readonly BindableProperty YPositionRequestProperty = BindableProperty.Create<Popup, double>(p => p.YPositionRequest, default(double), propertyChanged: OnPositionNeedsUpdating);
+		public static readonly BindableProperty XPositionRequestProperty = BindableProperty.Create<Popup, double>(p => p.XPositionRequest, default(double), propertyChanged: OnPositionChanged);
+		public static readonly BindableProperty YPositionRequestProperty = BindableProperty.Create<Popup, double>(p => p.YPositionRequest, default(double), propertyChanged: OnPositionChanged);
 
-		public static readonly BindableProperty LeftBorderColorProperty = BindableProperty.Create<Popup, Color>(p => p.LeftBorderColor, Color.Transparent);
-		public static readonly BindableProperty RightBorderColorProperty = BindableProperty.Create<Popup, Color>(p => p.RightBorderColor, Color.Transparent);
-		public static readonly BindableProperty TopBorderColorProperty = BindableProperty.Create<Popup, Color>(p => p.TopBorderColor, Color.Transparent);
-		public static readonly BindableProperty BottomBorderColorProperty = BindableProperty.Create<Popup, Color>(p => p.BottomBorderColor, Color.Transparent);
+		public static readonly BindableProperty LeftBorderColorProperty = BindableProperty.Create<Popup, Color>(p => p.LeftBorderColor, Color.Transparent, propertyChanged: OnLeftBorderChanged);
+		public static readonly BindableProperty RightBorderColorProperty = BindableProperty.Create<Popup, Color>(p => p.RightBorderColor, Color.Transparent, propertyChanged: OnRightBorderChanged);
+		public static readonly BindableProperty TopBorderColorProperty = BindableProperty.Create<Popup, Color>(p => p.TopBorderColor, Color.Transparent, propertyChanged: OnTopBorderChanged);
+		public static readonly BindableProperty BottomBorderColorProperty = BindableProperty.Create<Popup, Color>(p => p.BottomBorderColor, Color.Transparent, propertyChanged: OnBottomBorderChanged);
 
-		public static readonly BindableProperty ContentWidthRequestProperty = BindableProperty.Create<Popup, double>(p => p.ContentWidthRequest, default(double), propertyChanged: OnPositionNeedsUpdating);
-		public static readonly BindableProperty ContentHeightRequestProperty = BindableProperty.Create<Popup, double>(p => p.ContentHeightRequest, default(double), propertyChanged: OnPositionNeedsUpdating);
+		public static readonly BindableProperty ContentWidthRequestProperty = BindableProperty.Create<Popup, double>(p => p.ContentWidthRequest, default(double), propertyChanged: OnPositionChanged);
+		public static readonly BindableProperty ContentHeightRequestProperty = BindableProperty.Create<Popup, double>(p => p.ContentHeightRequest, default(double), propertyChanged: OnPositionChanged);
 
 		internal static readonly BindableProperty SectionTypeProperty = BindableProperty.CreateAttached<Popup, PopupSectionType>(p => GetSectionTypeProperty(p), PopupSectionType.NotSet);
 
@@ -203,70 +208,177 @@ namespace FormsPopup
 		#endregion
 
 
-        /// <summary>
-        /// The SecionContainer includes the <see cref="Header"/>, <see cref="Body"/>, and <see cref="Footer"/>
-        /// </summary>
-        public VisualElement SectionContainer { get { return _sectionContainer; } }
+        #region Dependency Properties Changing
+
+
+        private static void OnHeaderPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var popup = (Popup)bindable;
+            popup.Header = (View)newValue;
+        }
+
+
+        private static void OnBodyPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var popup = (Popup)bindable;
+            popup.Body = (View)newValue;
+        }
+
+
+        private static void OnFooterPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var popup = (Popup)bindable;
+            popup.Footer = (View)newValue;
+        }
+
+
+        private static PopupSectionType GetSectionTypeProperty(BindableObject bindable)
+        {
+            return (PopupSectionType)bindable.GetValue(SectionTypeProperty);
+        }
+
+
+        private static void OnPositionChanged(BindableObject bindable, double oldValue, double newValue)
+        {
+            var view = (VisualElement)bindable;
+            var popup = view.FindParent<Popup>();
+
+            var rect = new Rectangle(popup.XPositionRequest, popup.YPositionRequest, popup.ContentWidthRequest, popup.ContentHeightRequest);
+            view.Layout(rect);
+            AbsoluteLayout.SetLayoutBounds(view, rect);
+        }
+
+
+        private static void OnLeftBorderChanged(BindableObject bindable, Color oldValue, Color newValue)
+        {
+            var popup = (Popup)bindable;
+            if (popup == null) return;
+
+            popup._leftBorder.BackgroundColor = newValue;
+        }
+
+
+        private static void OnRightBorderChanged(BindableObject bindable, Color oldValue, Color newValue)
+        {
+            var popup = (Popup)bindable;
+            if (popup == null) return;
+
+            popup._rightBorder.BackgroundColor = newValue;
+        }
+
+
+        private static void OnTopBorderChanged(BindableObject bindable, Color oldValue, Color newValue)
+        {
+            var popup = (Popup)bindable;
+            if (popup == null) return;
+
+            popup._topBorder.BackgroundColor = newValue;
+        }
+
+
+        private static void OnBottomBorderChanged(BindableObject bindable, Color oldValue, Color newValue)
+        {
+            var popup = (Popup)bindable;
+            if (popup == null) return;
+
+            popup._bottomBorder.BackgroundColor = newValue;
+        }
+
+
+        #endregion
 
 
 		public Popup()
 		{
 			IsVisible = false;
 			_sectionContainer.BindingContext = this;
-			_bodySection.VerticalOptions = LayoutOptions.FillAndExpand;
+		    _sectionContainer.Padding = 0;
+            _popupView.Padding = 0;
+            _bodySection.VerticalOptions = LayoutOptions.FillAndExpand;
 
-			Initializing += OnPopupInitializing;
 
-			_sectionContainer.Spacing = 0;
-			_sectionContainer.Children.Add(_headerSection);
-			_sectionContainer.Children.Add(_bodySection);
-			_sectionContainer.Children.Add(_footerSection);
+            // Used to identify if the user tapped within the header, body, or footer.
+            _headerSection.SetValue(SectionTypeProperty, PopupSectionType.Header);
+            _bodySection.SetValue(SectionTypeProperty, PopupSectionType.Body);
+            _footerSection.SetValue(SectionTypeProperty, PopupSectionType.Footer);
+            _popupView.SetValue(SectionTypeProperty, PopupSectionType.Backdrop);
 
-			_headerSection.SetValue(SectionTypeProperty, PopupSectionType.Header);
-			_bodySection.SetValue(SectionTypeProperty, PopupSectionType.Body);
-			_footerSection.SetValue(SectionTypeProperty, PopupSectionType.Footer);
 
-			// these are added to the absolute layout, so they can be positioned around the parent content
+            // Used to assign border colors
 			_leftBorder.SetBinding(BackgroundColorProperty, Binding.Create((Popup p) => p.LeftBorderColor));
 			_rightBorder.SetBinding(BackgroundColorProperty, Binding.Create((Popup p) => p.RightBorderColor));
 			_bottomBorder.SetBinding(BackgroundColorProperty, Binding.Create((Popup p) => p.BottomBorderColor));
 			_topBorder.SetBinding(BackgroundColorProperty, Binding.Create((Popup p) => p.TopBorderColor));
 
-			_sectionContainer.SetBinding(ContentWidthRequestProperty, Binding.Create((Popup p) => p.ContentWidthRequest));
-			_sectionContainer.SetBinding(ContentHeightRequestProperty, Binding.Create((Popup p) => p.ContentHeightRequest));
-			_sectionContainer.SetBinding(XPositionRequestProperty, Binding.Create((Popup p) => p.XPositionRequest));
-			_sectionContainer.SetBinding(YPositionRequestProperty, Binding.Create((Popup p) => p.YPositionRequest));
 
-			_popupView.Padding = 0;
-			_popupView.Children.Add(_sectionContainer);
-			_popupView.Children.Add(_leftBorder);
-			_popupView.Children.Add(_rightBorder);
-			_popupView.Children.Add(_topBorder);
-			_popupView.Children.Add(_bottomBorder);
+            // Adjust the layout bounds (not the overlay)
+            _sectionContainer.SetBinding(ContentWidthRequestProperty, Binding.Create((Popup p) => p.ContentWidthRequest));
+            _sectionContainer.SetBinding(ContentHeightRequestProperty, Binding.Create((Popup p) => p.ContentHeightRequest));
+            _sectionContainer.SetBinding(XPositionRequestProperty, Binding.Create((Popup p) => p.XPositionRequest));
+            _sectionContainer.SetBinding(YPositionRequestProperty, Binding.Create((Popup p) => p.YPositionRequest));
 
-			_popupView.SetValue(SectionTypeProperty, PopupSectionType.Backdrop);
 
-			// sizing section container
-			AbsoluteLayout.SetLayoutFlags(_sectionContainer, AbsoluteLayoutFlags.All);
-			AbsoluteLayout.SetLayoutBounds(_sectionContainer, new Rectangle(0, 0, 1, 1));
+            // sizing section container. The overlay is not sized in this class.
+            AbsoluteLayout.SetLayoutFlags(_sectionContainer, AbsoluteLayoutFlags.All);
+            AbsoluteLayout.SetLayoutBounds(_sectionContainer, new Rectangle(0, 0, 1, 1));
 
-			// left border
-			AbsoluteLayout.SetLayoutFlags(_leftBorder, AbsoluteLayoutFlags.All);
-			AbsoluteLayout.SetLayoutBounds(_leftBorder, new Rectangle(0, 0, BorderWidthFraction, BorderLengthFraction));
+            Initializing += OnPopupInitializing;
 
-			// right border
-			AbsoluteLayout.SetLayoutFlags(_rightBorder, AbsoluteLayoutFlags.All);
-			AbsoluteLayout.SetLayoutBounds(_rightBorder, new Rectangle(1, 0, BorderWidthFraction, BorderLengthFraction));
 
-			// top border
-			AbsoluteLayout.SetLayoutFlags(_topBorder, AbsoluteLayoutFlags.All);
-			AbsoluteLayout.SetLayoutBounds(_topBorder, new Rectangle(0, 0, 1, BorderWidthFraction));
+            // Create the content
+		    var content = new StackLayout
+		    {
+		        Padding = 0,
+		        Spacing = 0,
+		        Orientation = StackOrientation.Vertical,
 
-			// bottom border
-			AbsoluteLayout.SetLayoutFlags(_bottomBorder, AbsoluteLayoutFlags.All);
-			AbsoluteLayout.SetLayoutBounds(_bottomBorder, new Rectangle(0, BorderLengthFraction, 1, BorderWidthFraction));
+		        Children =
+		        {
+		            _headerSection,
+		            _bodySection,
+		            _footerSection
+		        }
+		    };
 
-			Content = _popupView;
+            _popupView.Children.Add(_sectionContainer);
+
+
+            // Position content
+            _sectionContainer.Children.Add(content, 
+                Constraint.Constant(XPositionRequest), 
+                Constraint.Constant(YPositionRequest),
+                Constraint.RelativeToParent(p => p.Width),
+                Constraint.RelativeToParent(p => p.Height));
+
+            // Position left border
+            _sectionContainer.Children.Add(_leftBorder,
+                Constraint.Constant(0),
+                Constraint.Constant(0),
+                Constraint.Constant(BorderWidth),
+                Constraint.RelativeToParent(p => p.Height));
+
+            // Position right border
+            _sectionContainer.Children.Add(_rightBorder,
+                Constraint.RelativeToParent(p => p.Width),
+                Constraint.Constant(0),
+                Constraint.Constant(BorderWidth),
+                Constraint.RelativeToParent(p => p.Height));
+
+            // Position top border
+            _sectionContainer.Children.Add(_topBorder,
+                Constraint.Constant(0),
+                Constraint.Constant(0),
+                Constraint.RelativeToParent(p => p.Width),
+                Constraint.Constant(BorderWidth));
+
+            // Position bottom border
+            _sectionContainer.Children.Add(_bottomBorder,
+                Constraint.Constant(0),
+                Constraint.RelativeToParent(p => p.Height),
+                Constraint.RelativeToParent(p => p.Width),
+                Constraint.Constant(BorderWidth));
+
+            Content = _popupView;
 		}
 
 
@@ -399,43 +511,5 @@ namespace FormsPopup
 
 			TapGestureRecognizerVisitor.Visit(_popupView, factory);
 		}
-
-
-		private static void OnHeaderPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-		{
-			var popup = (Popup)bindable;
-			popup.Header = (View)newValue;
-		}
-
-
-		private static void OnBodyPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-		{
-			var popup = (Popup)bindable;
-			popup.Body = (View)newValue;
-		}
-
-
-		private static void OnFooterPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-		{
-			var popup = (Popup)bindable;
-			popup.Footer = (View)newValue;
-		}
-
-
-		private static PopupSectionType GetSectionTypeProperty(BindableObject bindable)
-		{
-			return (PopupSectionType)bindable.GetValue(SectionTypeProperty);
-		}
-
-
-		private static void OnPositionNeedsUpdating(BindableObject bindable, double oldValue, double newValue)
-		{
-			var view = (VisualElement)bindable;
-			var popup = view.FindParent<Popup>();
-
-			var rect = new Rectangle(popup.XPositionRequest, popup.YPositionRequest, popup.ContentWidthRequest, popup.ContentHeightRequest);
-			view.Layout(rect);
-			AbsoluteLayout.SetLayoutBounds(view, rect);
-		}
-	}
+    }
 }
