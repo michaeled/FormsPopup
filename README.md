@@ -147,3 +147,11 @@ At this moment, there are no default styles for the popup. Your views will inher
 ## Screenshots
 ![alt text](https://github.com/michaeled/FormsPopup/blob/master/pictures/androidPopup.gif "Android")
 ![alt text](https://github.com/michaeled/FormsPopup/blob/master/pictures/iOSPopup.gif "iOS")
+
+## FAQ
+
+**Q** Can I use XAML to create the popups?
+**A** Of course!
+
+**Q** Can I add control XX in the popup?
+**A** I don't see why not. Let me know if you have any problems.
