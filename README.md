@@ -152,8 +152,8 @@ At this moment, there are no default styles for the popup. Your views will inher
 
 <dl>
   <dt>Q. Can I use XAML to create popup views?</dt>
-  <dd>**A.** Of course!</dd>
+  <dd><strong>A.</strong> Of course!</dd>
 
   <dt>Q. Can I add control XX in the popup?</dt>
-  <dd>**A.** I don't see why not. Let me know if you have any problems.</dd>
+  <dd><strong>A.</strong> I don't see why not. Let me know if you have any problems.</dd>
 </dl>
