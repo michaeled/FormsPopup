@@ -21,6 +21,13 @@ namespace FormsPopup.Examples
 
             var showPopup = new Button {Text = "Show Popup"};
 
+            var closeButton = new Button
+            {
+                Text = "Does nothing",
+                TextColor = Color.FromHex("#D37E00"),
+                BackgroundColor = Color.White,
+            };
+
             _popup1 = new Popup
             {
                 XPositionRequest = 0.5,
@@ -49,6 +56,18 @@ namespace FormsPopup.Examples
                         FontSize = Device.GetNamedSize(NamedSize.Medium, typeof (Label)),
                         TextColor = Color.Gray,
                         Text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                    }
+                },
+
+                Footer = new ContentView
+                {
+                    BackgroundColor = Color.White,
+
+                    Content = new StackLayout
+                    {
+                        Orientation = StackOrientation.Horizontal,
+                        HorizontalOptions = LayoutOptions.EndAndExpand,
+                        Children = { closeButton }
                     }
                 }
             };

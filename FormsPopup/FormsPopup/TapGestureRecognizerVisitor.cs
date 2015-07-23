@@ -51,7 +51,12 @@ namespace FormsPopup
 					return;
 				}
 
-				var behavior = factoryMethod();
+			    if (view is Button)
+			    {
+			        return;
+			    }
+
+			    var behavior = factoryMethod();
 				var tapBehavior = behavior as TapGestureRecognizer;
 
 				if (tapBehavior != null)

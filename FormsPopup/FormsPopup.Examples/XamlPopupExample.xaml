@@ -41,6 +41,14 @@ Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod te
 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
         </ContentView>
       </ex:Popup.Body>
+      
+      <ex:Popup.Footer>
+        <ContentView BackgroundColor="White">
+          <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+            <Button Text="Does nothing" BackgroundColor="White" TextColor="#D37E00"></Button>
+          </StackLayout>
+        </ContentView>
+      </ex:Popup.Footer>
     </ex:Popup>
   </ex:PopupPage.Popups>
 </ex:PopupPage>
