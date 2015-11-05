@@ -10,6 +10,10 @@ I chose not to use any platform APIs (Xamarin.Android or Xamarin.iOS) while impl
 * FormsPopup.Droid
 * FormsPopup.iOS
 
+## A short note ##
+
+This project has a few documented issues. They are mostly related to iOS9. I will  address these bugs after I have released my UI inspector for Xamarin.Forms mobile apps.
+
 ## Initializing
 
 The current implementation requires either one of two conditions be met before you can use a popup view within a `Page`:
