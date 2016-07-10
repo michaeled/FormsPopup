@@ -1,4 +1,7 @@
+
 # Xamarin.Forms Popup View
+
+**This project is inactive, and I will not be making further changes. Pull requests welcome. :P**
 
 This repository houses an example of using the Xamarin.Forms API to create a popup view.
 I chose not to use any platform APIs (Xamarin.Android or Xamarin.iOS) while implementing the view, as I wished to experiment with the framework. That said, it's still a fairly *featureful* implementation.
