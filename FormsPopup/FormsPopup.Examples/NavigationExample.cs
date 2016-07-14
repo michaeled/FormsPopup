@@ -26,8 +26,8 @@ namespace FormsPopup.Examples
                     BackgroundColor = Color.White,
                     Content = new Label
                     {
-                        XAlign = TextAlignment.Center,
-                        YAlign = TextAlignment.Center,
+                        VerticalTextAlignment = TextAlignment.Center,
+                        HorizontalTextAlignment = TextAlignment.Center,
                         TextColor = Color.Black,
                         Text = "Hello, World!"
                     }

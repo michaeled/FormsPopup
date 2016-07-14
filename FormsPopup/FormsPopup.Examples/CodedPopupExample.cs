@@ -135,12 +135,12 @@ namespace FormsPopup.Examples
 
             if (_displayTappedSection.On)
             {
-                DisplayAlert("Information", string.Format("{0} tapped.", e.Section), "OK");
+                DisplayAlert("Information", $"{e.Section} tapped.", "OK");
             }
         }
 
 
-        private async void ShowPopup_Clicked(object sender, System.EventArgs e)
+        private async void ShowPopup_Clicked(object sender, EventArgs e)
         {
             if (_showingAnimation.On)
             {
@@ -156,7 +156,10 @@ namespace FormsPopup.Examples
                         p.SectionContainer.RelScaleTo(-0.05, 105, Easing.CubicOut)
                     ).ContinueWith(c =>
                     {
-                        p.SectionContainer.Scale = original;
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            p.SectionContainer.Scale = original;
+                        });
                     });
                 });
             }

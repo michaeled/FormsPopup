@@ -30,10 +30,10 @@ namespace FormsPopup
         /// <summary>
         /// The SecionContainer includes the <see cref="Header"/>, <see cref="Body"/>, and <see cref="Footer"/>
         /// </summary>
-        public VisualElement SectionContainer { get { return _sectionContainer; } }
+        public VisualElement SectionContainer => _sectionContainer;
 
 
-		#region Events
+	    #region Events
 
 
 		public event EventHandler<PopupTappedEventArgs> Tapped;
@@ -47,49 +47,41 @@ namespace FormsPopup
 
 		protected virtual void OnPropertyTapped(PopupTappedEventArgs e)
 		{
-			var handler = Tapped;
-			if (handler != null) handler(this, e);
-		}
+            Tapped?.Invoke(this, e);
+        }
 
 
 		protected internal virtual void OnInitializing()
 		{
-			var handler = Initializing;
-			if (handler != null) handler(this, EventArgs.Empty);
+		    Initializing?.Invoke(this, EventArgs.Empty);
 		}
 
 
 		protected virtual PopupShowingEventArgs OnShowing()
 		{
 			var args = new PopupShowingEventArgs();
-			var handler = Showing;
-			if (handler != null) handler(this, args);
-
-			return args;
+		    Showing?.Invoke(this, args);
+		    return args;
 		}
 
 
 		protected virtual void OnShown()
 		{
-			var handler = Shown;
-			if (handler != null) handler(this, EventArgs.Empty);
+            Shown?.Invoke(this, EventArgs.Empty);
 		}
 
 
 		protected virtual PopupHidingEventArgs OnHiding()
 		{
 			var args = new PopupHidingEventArgs();
-			var handler = Hiding;
-			if (handler != null) handler(this, args);
-
+            Hiding?.Invoke(this, args);
 			return args;
 		}
 
 
 		protected virtual void OnHidden()
 		{
-			var handler = Hidden;
-			if (handler != null) handler(this, EventArgs.Empty);
+			Hidden?.Invoke(this, EventArgs.Empty);
 		}
 
 
@@ -99,22 +91,23 @@ namespace FormsPopup
 		#region Dependency Properties
 
 
-		public static readonly BindableProperty HeaderProperty = BindableProperty.Create<Popup, View>(p => p.Header, null, propertyChanged: OnHeaderPropertyChanged);
-		public static readonly BindableProperty BodyProperty = BindableProperty.Create<Popup, View>(p => p.Body, null, propertyChanged: OnBodyPropertyChanged);
-		public static readonly BindableProperty FooterProperty = BindableProperty.Create<Popup, View>(p => p.Footer, null, propertyChanged: OnFooterPropertyChanged);
+		public static readonly BindableProperty HeaderProperty = BindableProperty.Create(nameof(Header), typeof(View), typeof(Popup), null, propertyChanged: OnHeaderPropertyChanged);
+	    public static readonly BindableProperty BodyProperty = BindableProperty.Create(nameof(Body), typeof (View), typeof (Popup), null, propertyChanged: OnBodyPropertyChanged);
+	    public static readonly BindableProperty FooterProperty = BindableProperty.Create(nameof(Footer), typeof (View), typeof (Popup), null, propertyChanged: OnFooterPropertyChanged);
 
-		public static readonly BindableProperty XPositionRequestProperty = BindableProperty.Create<Popup, double>(p => p.XPositionRequest, default(double), propertyChanged: OnPositionChanged);
-		public static readonly BindableProperty YPositionRequestProperty = BindableProperty.Create<Popup, double>(p => p.YPositionRequest, default(double), propertyChanged: OnPositionChanged);
+        public static readonly BindableProperty XPositionRequestProperty = BindableProperty.Create(nameof(XPositionRequest), typeof (double), typeof (Popup), default(double), propertyChanged: OnPositionChanged);
+	    public static readonly BindableProperty YPositionRequestProperty = BindableProperty.Create(nameof(XPositionRequest), typeof (double), typeof (Popup), default(double), propertyChanged: OnPositionChanged);
 
-		public static readonly BindableProperty LeftBorderColorProperty = BindableProperty.Create<Popup, Color>(p => p.LeftBorderColor, Color.Transparent, propertyChanged: OnLeftBorderChanged);
-		public static readonly BindableProperty RightBorderColorProperty = BindableProperty.Create<Popup, Color>(p => p.RightBorderColor, Color.Transparent, propertyChanged: OnRightBorderChanged);
-		public static readonly BindableProperty TopBorderColorProperty = BindableProperty.Create<Popup, Color>(p => p.TopBorderColor, Color.Transparent, propertyChanged: OnTopBorderChanged);
-		public static readonly BindableProperty BottomBorderColorProperty = BindableProperty.Create<Popup, Color>(p => p.BottomBorderColor, Color.Transparent, propertyChanged: OnBottomBorderChanged);
+	    public static readonly BindableProperty LeftBorderColorProperty = BindableProperty.Create(nameof(LeftBorderColor), typeof (Color), typeof (Popup), Color.Transparent, propertyChanged: OnLeftBorderChanged);
+	    public static readonly BindableProperty RightBorderColorProperty = BindableProperty.Create(nameof(RightBorderColor), typeof (Color), typeof (Popup), Color.Transparent, propertyChanged: OnRightBorderChanged);
+	    public static readonly BindableProperty TopBorderColorProperty = BindableProperty.Create(nameof(TopBorderColor), typeof (Color), typeof (Popup), Color.Transparent, propertyChanged: OnTopBorderChanged);
+	    public static readonly BindableProperty BottomBorderColorProperty = BindableProperty.Create(nameof(BottomBorderColor), typeof (Color), typeof (Popup), Color.Transparent, propertyChanged: OnBottomBorderChanged);
 
-		public static readonly BindableProperty ContentWidthRequestProperty = BindableProperty.Create<Popup, double>(p => p.ContentWidthRequest, default(double), propertyChanged: OnPositionChanged);
-		public static readonly BindableProperty ContentHeightRequestProperty = BindableProperty.Create<Popup, double>(p => p.ContentHeightRequest, default(double), propertyChanged: OnPositionChanged);
 
-		internal static readonly BindableProperty SectionTypeProperty = BindableProperty.CreateAttached<Popup, PopupSectionType>(p => GetSectionTypeProperty(p), PopupSectionType.NotSet);
+	    public static readonly BindableProperty ContentWidthRequestProperty = BindableProperty.Create(nameof(ContentWidthRequest), typeof (double), typeof (Popup), default(double), propertyChanged: OnPositionChanged);
+	    public static readonly BindableProperty ContentHeightRequestProperty = BindableProperty.Create(nameof(ContentHeightRequest), typeof (double), typeof (Popup), default(double), propertyChanged: OnPositionChanged);
+
+	    internal static readonly BindableProperty SectionTypeProperty = BindableProperty.CreateAttached("SectionType", typeof (PopupSectionType), typeof (Popup), PopupSectionType.NotSet);
 
 
 		public View Header
@@ -232,13 +225,7 @@ namespace FormsPopup
         }
 
 
-        private static PopupSectionType GetSectionTypeProperty(BindableObject bindable)
-        {
-            return (PopupSectionType)bindable.GetValue(SectionTypeProperty);
-        }
-
-
-        private static void OnPositionChanged(BindableObject bindable, double oldValue, double newValue)
+        private static void OnPositionChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
             var view = (VisualElement)bindable;
             var popup = view.FindParent<Popup>();
@@ -249,39 +236,39 @@ namespace FormsPopup
         }
 
 
-        private static void OnLeftBorderChanged(BindableObject bindable, Color oldValue, Color newValue)
+        private static void OnLeftBorderChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
             var popup = (Popup)bindable;
             if (popup == null) return;
 
-            popup._leftBorder.BackgroundColor = newValue;
+            popup._leftBorder.BackgroundColor = (Color) newvalue;
         }
 
 
-        private static void OnRightBorderChanged(BindableObject bindable, Color oldValue, Color newValue)
+        private static void OnRightBorderChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
             var popup = (Popup)bindable;
             if (popup == null) return;
 
-            popup._rightBorder.BackgroundColor = newValue;
+            popup._rightBorder.BackgroundColor = (Color) newvalue;
         }
 
 
-        private static void OnTopBorderChanged(BindableObject bindable, Color oldValue, Color newValue)
+        private static void OnTopBorderChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
             var popup = (Popup)bindable;
             if (popup == null) return;
 
-            popup._topBorder.BackgroundColor = newValue;
+            popup._topBorder.BackgroundColor = (Color) newvalue;
         }
 
 
-        private static void OnBottomBorderChanged(BindableObject bindable, Color oldValue, Color newValue)
+        private static void OnBottomBorderChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
             var popup = (Popup)bindable;
             if (popup == null) return;
 
-            popup._bottomBorder.BackgroundColor = newValue;
+            popup._bottomBorder.BackgroundColor = (Color) newvalue;
         }
 
 
@@ -396,15 +383,10 @@ namespace FormsPopup
 				return;
 			}
 
-			var parent = ParentView.FindParent<Layout>();
+			var parent = Parent.FindParent<Layout>();
+		    parent?.RaiseChild(_popupView);
 
-			if (parent != null)
-			{
-				parent.RaiseChild(_popupView);
-			}
-
-			var handlerResponse = OnShowing();
-
+		    var handlerResponse = OnShowing();
 			if (handlerResponse.Cancel)
 			{
 				return;

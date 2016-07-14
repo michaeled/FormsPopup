@@ -14,16 +14,16 @@ namespace FormsPopup
 		private readonly AbsoluteLayout _absContent = new AbsoluteLayout();
 
 		public ContentPage ParentPage { get; set; }
-		public IEnumerable<Popup> Popups { get { return _popups; } }
+		public IEnumerable<Popup> Popups => _popups;
 
 
-		/// <summary>
+	    /// <summary>
 		/// Instantiate <see cref="PopupPageInitializer"/>
 		/// </summary>
 		/// <param name="parentPage">The page that contains the <see cref="Popup"/> views</param>
 		public PopupPageInitializer(ContentPage parentPage)
 		{
-			if (parentPage == null) throw new ArgumentNullException("parentPage");
+			if (parentPage == null) throw new ArgumentNullException(nameof(parentPage));
 
 			ParentPage = parentPage;
 			parentPage.ChildAdded += ParentPage_ChildAdded;
@@ -37,7 +37,7 @@ namespace FormsPopup
 		/// <param name="popup">The popup to be initialized</param>
 		public void Add(Popup popup)
 		{
-			if (popup == null) throw new ArgumentNullException("popup");
+			if (popup == null) throw new ArgumentNullException(nameof(popup));
 			_popups.Add(popup);
 		}
 

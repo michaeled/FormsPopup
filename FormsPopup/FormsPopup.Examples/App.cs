@@ -15,7 +15,7 @@ namespace FormsPopup.Examples
              *  MainPage = new ComplexLayoutExample();
              */
 
-            MainPage = new CodedPopupExample();
+            MainPage = new CodedSimpleExample();
         }
 
         protected override void OnStart()

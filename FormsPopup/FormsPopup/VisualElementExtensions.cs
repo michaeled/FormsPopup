@@ -12,17 +12,17 @@ namespace FormsPopup
 		/// Search the element hierarchy for an ancestor of type <typeparam name="T"></typeparam> and return it.
 		/// </summary>
 		/// <param name="visual">The starting location of the search</param>
-		public static T FindParent<T>(this VisualElement visual) where T : VisualElement
+		public static T FindParent<T>(this Element visual) where T : Element
 		{
 			var obj = visual;
 			while ((obj as T) == null)
 			{
-				if (obj.ParentView == null)
+				if (obj.Parent == null)
 				{
 					return null;
 				}
 
-				obj = obj.ParentView;
+				obj = obj.Parent;
 			}
 
 			return (T)obj;
@@ -35,14 +35,14 @@ namespace FormsPopup
 		/// <param name="visual">The starting location of the search</param>
 		/// <param name="condition">The condition that is recursively called for each parent view in the hierarchy</param>
 		/// <returns></returns>
-		public static VisualElement FindParent(this VisualElement visual, Predicate<VisualElement> condition)
+		public static Element FindParent(this Element visual, Predicate<Element> condition)
 		{
-			if (visual.ParentView == null)
+			if (visual.Parent == null)
 			{
 				return null;
 			}
 
-			var current = visual.ParentView;
+			var current = visual.Parent;
 
 			while (current != null)
 			{
@@ -53,7 +53,7 @@ namespace FormsPopup
 					return current;
 				}
 
-				current = current.ParentView;
+				current = current.Parent;
 			}
 
 			return null;
