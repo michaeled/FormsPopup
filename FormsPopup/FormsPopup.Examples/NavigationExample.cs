@@ -41,10 +41,6 @@ namespace FormsPopup.Examples
             _popup.Tapped += Popup_Tapped;
 
 
-            // Initialize popup view
-            var _ = new PopupPageInitializer(this) {_popup};
-
-
             // Notice _popup is not added to this ContentPage
             Content = new StackLayout
             {
@@ -57,9 +53,11 @@ namespace FormsPopup.Examples
                 }
             };
 
+			// Initialize popup view
+			var _ = new PopupPageInitializer(this) { _popup };
 
-            // Child page that will opened via btnPopup.Clicked
-            _childPage = new ContentPage
+			// Child page that will opened via btnPopup.Clicked
+			_childPage = new ContentPage
             {
                 Content = new Label
                 {

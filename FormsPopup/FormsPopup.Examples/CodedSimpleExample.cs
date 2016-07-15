@@ -38,12 +38,11 @@ namespace FormsPopup.Examples
                 args.Popup.Hide();
             };
 
-            new PopupPageInitializer(this) { popup };
 
-            var button = new Button { Text = "Show Popup" };
+			var button = new Button { Text = "Show Popup" };
             button.Clicked += (s, e) => popup.Show();
 
-            Content = new StackLayout
+            var stack = new StackLayout
             {
                 Children =
                 {
@@ -51,6 +50,10 @@ namespace FormsPopup.Examples
                     button
                 }
             };
-        }
+
+			Device.OnPlatform(() => stack.Padding = new Thickness(0, 25, 0, 0));
+			Content = stack;
+			new PopupPageInitializer(this) { popup };
+		}
     }
 }

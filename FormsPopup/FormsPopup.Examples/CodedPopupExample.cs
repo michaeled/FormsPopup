@@ -73,8 +73,6 @@ namespace FormsPopup.Examples
                 }
             };
 
-            // Required to be instantiated before the popup is added to ContentPage.Content
-            var popupInit = new PopupPageInitializer(this) { _popup1 };
 
             Content = new StackLayout
             {
@@ -99,8 +97,11 @@ namespace FormsPopup.Examples
                 }
             };
 
+			// Required to be instantiated before the popup is added to ContentPage.Content
+			new PopupPageInitializer(this) { _popup1 };
 
-            _popup1.Tapped += Popup1_Tapped;
+
+			_popup1.Tapped += Popup1_Tapped;
             _popup1.Showing += Popup1_Showing;
             showPopup.Clicked += ShowPopup_Clicked;
             closeButton.Clicked += CloseButton_Clicked;

@@ -12,6 +12,7 @@ namespace FormsPopup
 	{
 		private readonly List<Popup> _popups = new List<Popup>();
 		private readonly AbsoluteLayout _absContent = new AbsoluteLayout();
+		private bool _initialized;
 
 		public ContentPage ParentPage { get; set; }
 		public IEnumerable<Popup> Popups => _popups;
@@ -54,26 +55,39 @@ namespace FormsPopup
 		}
 
 
+		private void Initialize()
+		{
+			if (_initialized) return;
+			_initialized = true;
+
+			var oldContent = ParentPage.Content;
+
+			Device.OnPlatform(() => ParentPage.Content = null);
+
+			_absContent.Children.Add(oldContent);
+
+			AbsoluteLayout.SetLayoutFlags(oldContent, AbsoluteLayoutFlags.All);
+			AbsoluteLayout.SetLayoutBounds(oldContent, new Rectangle(0, 0, 1, 1));
+
+			ParentPage.Content = _absContent;
+		}
+
+
 		private void ParentPage_ChildAdded(object sender, ElementEventArgs e)
 		{
+			if (ParentPage is PopupPage) return;
+
 			if (ParentPage.Content == e.Element && e.Element != _absContent)
 			{
-				var oldContent = ParentPage.Content;
-
-				Device.OnPlatform (() => ParentPage.Content = null);
-
-				_absContent.Children.Add(oldContent);
-
-				AbsoluteLayout.SetLayoutFlags(oldContent, AbsoluteLayoutFlags.All);
-				AbsoluteLayout.SetLayoutBounds(oldContent, new Rectangle(0, 0, 1, 1));
-
-				ParentPage.Content = _absContent;
+				Initialize();
 			}
 		}
 
 
 		private void ParentPage_Appearing(object sender, EventArgs e)
 		{
+			Initialize();
+
 			foreach (var popup in Popups)
 			{
 				_absContent.Children.Add(popup, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
