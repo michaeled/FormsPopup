@@ -20,7 +20,7 @@ This project has a few documented issues. They are mostly related to iOS9.
 The current implementation requires either one of two conditions be met before you can use a popup view within a `Page`:
 
 1. The visible page must extend from the `PopupPage` class.
-2. Any visible page that does not extend from `PopupPage` must instantiate an object of type `PopupPageInitializer` before any children have been added to the page. This is easier than it seems:
+2. Any visible page that does not extend from `PopupPage` must instantiate an object of type `PopupPageInitializer` after the page's content has been set. This is easier than it seems:
 
 **Example**
 
@@ -50,9 +50,6 @@ public class CodedSimpleExample : ContentPage
 			}
 		};
 
-		// Required for the popup to work
-		new PopupPageInitializer(this) {popup};
-	
 		var button = new Button {Text = "Show Popup"};
 		button.Clicked += (s, e) => popup.Show();
 		
@@ -63,6 +60,9 @@ public class CodedSimpleExample : ContentPage
 				button
 			}
 		};
+		
+		// Required for the popup to work. It must come after the Content has been set.
+		new PopupPageInitializer(this) {popup};
 	}
 }
 ```
